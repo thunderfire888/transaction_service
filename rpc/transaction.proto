@@ -1,0 +1,605 @@
+syntax = "proto3";
+
+package transaction;
+
+option go_package = "./transaction";
+
+message MerchantBalanceFreezeRequest {
+  string MerchantCode = 1;
+  string CurrencyCode = 2;
+  string BalanceType = 3;
+  string Comment = 4;
+  double Amount = 5;
+  string UserAccount = 6;
+  int64  MerchantPtBalanceId = 7;
+}
+
+message MerchantBalanceFreezeResponse {
+  string Code = 1;
+  string Message = 2;
+}
+
+message MerchantBalanceUpdateRequest {
+  string MerchantCode = 1;
+  string CurrencyCode = 2;
+  string BalanceType = 3;
+  string Comment = 4;
+  double Amount = 5;
+  string UserAccount = 6;
+}
+
+message MerchantBalanceUpdateResponse {
+  string Code = 1;
+  string Message = 2;
+}
+
+message ProxyOrderRequest {
+  ProxyPayOrderRequest req = 1;
+  CorrespondMerChnRate rate = 2;
+  string balanceType = 3;
+}
+
+message ProxyOrderSmartRequest {
+  ProxyPayOrderRequest req = 1;
+  CorrespondMerChnRate rate = 2;
+  string orderNo = 3;
+  string balanceType = 4;
+}
+
+message ProxyPayFailRequest{
+  string merchantCode = 1;
+  string orderNo = 2;
+}
+
+message ProxyPayFailResponse{
+  string ProxyOrderNo = 1;
+  string Code = 2;
+  string Message = 3;
+}
+
+message ProxyOrderResponse {
+  string ProxyOrderNo = 1;
+  string Code = 2;
+  string Message = 3;
+}
+
+message PayOrderSwitchTestRequest {
+  string OrderNo = 1;
+  string UserAccount = 2;
+}
+
+message PayOrderSwitchTestResponse {
+  string Code = 1;
+  string Message = 2;
+}
+
+message ProxyOrderTestRequest{
+  string ProxyOrderNo = 1;
+}
+
+message ProxyOrderTestResponse{
+  string Code = 1;
+  string Message = 2;
+}
+
+message ProxyPayOrderRequest{
+  string AccessType = 1;
+  string MerchantId = 2;
+  string Sign = 3;
+  string NotifyUrl = 4;
+  string Language = 5;
+  string OrderNo = 6;
+  string BankId = 7;
+  string BankName = 8;
+  string BankProvince = 9;
+  string BankCity = 10;
+  string BranchName = 11;
+  string BankNo = 12;
+  double OrderAmount = 13;
+  string DefrayName = 14;
+  string DefrayId = 15;
+  string DefrayMobile = 16;
+  string DefrayEmail = 17;
+  string Currency = 18;
+  string PayTypeSubNo = 19;
+}
+
+message CorrespondMerChnRate{
+  string MerchantCode = 1;
+  string ChannelPayTypesCode = 2;
+  string ChannelCode = 3;
+  string PayTypeCode = 4;
+  string Designation = 5;
+  string DesignationNo = 6;
+  double Fee = 7;
+  double HandlingFee = 8;
+  double ChFee = 9;
+  double ChHandlingFee = 10;
+  double SingleMinCharge = 11;
+  double SingleMaxCharge = 12;
+  string CurrencyCode = 13;
+  string ApiUrl = 14;
+  string IsRate = 15;
+  int64 MerchantPtBalanceId = 16;
+}
+
+message PayOrderRequest {
+  PayOrder payOrder = 1;
+  CorrespondMerChnRate Rate = 2;
+  string OrderNo = 3;
+  string ChannelOrderNo = 4;
+}
+
+message PayOrderResponse {
+  string Code = 1;
+  string Message = 2;
+  string PayOrderNo = 3;
+}
+
+message PayOrder {
+  string AccessType = 1;
+  string MerchantId = 2;
+  string NotifyUrl = 3;
+  string PageUrl = 4;
+  string Language = 5;
+  string Sign = 6;
+  string JumpType = 7;
+  string LoginType = 8;
+  string OrderNo = 9;
+  string OrderAmount = 10;
+  string Currency = 11;
+  string PayType = 12;
+  string OrderTime = 13;
+  string OrderName = 14;
+  string BankCode = 15;
+  string Phone = 16;
+  string PayTypeNo = 17;
+  string UserId = 18;
+  string MerchantLevel = 19;
+  string UserIp = 20;
+}
+
+message InternalOrderRequest {
+  InternalOrder internalOrder = 1;
+  MerchantOrderRateListView merchantOrderRateListView = 2;
+}
+
+message InternalOrderResponse {
+  string orderNo = 1;
+  string Code = 2;
+  string Message = 3;
+}
+
+message InternalOrder {
+  string Imgurl = 1;
+  string MerchantCode = 2;
+  string UserAccount = 3;
+  double OrderAmount = 4;
+  string CurrencyCode = 5;
+  string MerchantAccountName = 6;
+  string MerchantBankAccount = 7;
+  string MerchantBankCity = 8;
+  string merchantBankProvince = 9;
+  string MerchantBankNo = 10;
+  string MerchantBankName = 11;
+  string ChannelBankName = 12;
+  string ChannelAccountName = 13;
+  string ChannelBankAccount = 14;
+  string ChannelBankNo = 15;
+}
+
+message MerchantOrderRateListView {
+  string ChannelPayTypesCode = 1;
+  string PayTypeCode = 2;
+  double MerHandlingFee = 3;
+  double MerFee = 4;
+  string Designation = 5;
+  string DesignationNo = 6;
+  string ChannelCode = 7;
+  string CurrencyCode = 8;
+  double MaxInternalCharge = 9;
+  double SingleMinCharge = 10;
+  double SingleMaxCharge = 11;
+  string MerchantCode = 12;
+  string MerchnrateStatus = 13;
+  string ChnStatus = 14;
+  string ChnIsProxy = 15;
+  string CptStatus = 16;
+  double CptFee = 17;
+  double CptHandlingFee = 18;
+  string IsRate = 19;
+  int64  PtBalanceId = 20;
+}
+
+message WithdrawOrderRequest {
+  string MerchantCode = 1;
+  string UserAccount = 2;
+  string MerchantAccountName = 3;
+  string MerchantBankeAccount = 4;
+  string MerchantBankNo = 5;
+  string MerchantBankName = 6;
+  string MerchantBankProvince = 7;
+  string MerchantBankCity = 8;
+  string CurrencyCode = 9;
+  double OrderAmount = 10;
+  string OrderNo = 11;
+  double HandlingFee = 12;
+  string Source = 13;
+  string MerchantOrderNo = 14;
+  string NotifyUrl = 15;
+  string PageUrl = 16;
+  string Memo = 17;
+  string ChangeType = 18;
+  int64  PtBalanceId = 19;
+  string IsUsdt = 20;
+  double DefaultHandlingFee = 21;
+}
+message WithdrawOrderResponse {
+  string OrderNo = 1;
+  string Code = 2;
+  string Message = 3;
+}
+
+message PayCallBackRequest {
+  string CallbackTime = 1;
+  string ChannelOrderNo = 2;
+  double OrderAmount = 3;
+  string OrderStatus = 4;
+  string PayOrderNo = 5;
+  string MerchantCode = 6;
+  string CurrencyCode = 7;
+  string BalanceType = 8;
+}
+
+message PayCallBackResponse {
+  string Code = 1;
+  string Message = 2;
+  string MerchantCode = 3;
+  string MerchantOrderNo = 4;
+  string OrderNo = 5;
+  double OrderAmount = 6;
+  double ActualAmount = 7;
+  double TransferHandlingFee = 8;
+  string NotifyUrl = 9;
+  string OrderTime = 10;
+  string PayOrderTime = 11;
+  string Status = 12;
+
+}
+
+message InternalReviewSuccessRequest {
+  string OrderNo = 1;
+  string UserAccount = 2;
+  double ChnRate = 3;
+  repeated Rates list = 4;
+  string IsProxy = 5;
+  int64 PtBalanceId = 6;
+}
+
+message Rates {
+  string AgentLayerCode = 1;
+  double rate = 2;
+}
+
+message InternalReviewSuccessResponse {
+  string OrderNo = 1;
+  string Code = 2;
+  string Message = 3;
+}
+
+message WithdrawReviewFailRequest {
+  string OrderNo = 1;
+  string UserAccount = 2;
+  string Memo = 3;
+  int64  PtBalanceId = 4;
+}
+
+message WithdrawReviewFailResponse {
+  string OrderNo = 1;
+  string Code = 2;
+  string Message = 3;
+}
+
+message WithdrawReviewSuccessRequest {
+  string OrderNo = 1;
+  string UserAccount = 2;
+  string Memo = 3;
+  repeated ChannelWithdraw channelWithdraw = 4;
+  string IsCharged = 5;
+}
+
+message WithdrawReviewSuccessResponse {
+  string OrderNo = 1;
+  string Code = 2;
+  string Message = 3;
+}
+
+message ChannelWithdraw {
+  string ChannelCode = 1;
+  double WithdrawAmount = 2;
+}
+
+message ProxyOrderUIRequest {
+  ProxyOrderUI proxyOrderUI = 1;
+  MerchantOrderRateListView merchantOrderRateListView = 2;
+}
+
+message ProxyOrderUIResponse{
+  string ProxyOrderNo = 1;
+  string Code = 2;
+  string Message = 3;
+}
+
+message ProxyOrderUI {
+  string MerchantCode = 1;
+  string UserAccount = 2;
+  string OrderNo = 3;
+  double OrderAmount = 4;
+  string MerchantBankAccount = 5;
+  string MerchantBankNo = 6;
+  string MerchantBankName = 7;
+  string MerchantAccountName = 8;
+  string MerchantBankProvince = 9;
+  string MerchantBankCity = 10;
+  string CurrencyCode = 11;
+}
+
+// 補單
+message MakeUpReceiptOrderRequest {
+  string OrderNo = 1;
+  string ChannelOrderNo = 2;
+  string ReasonType = 3;
+  double Amount = 4;
+  string Comment = 5;
+  string UserAccount = 6;
+}
+
+message MakeUpReceiptOrderResponse {
+  string Code = 1;
+  string Message = 2;
+}
+
+// 手動確認收款
+message ConfirmPayOrderRequest {
+  string OrderNo = 1;
+  string Comment = 2;
+}
+
+message ConfirmPayOrderResponse {
+  string Code = 1;
+  string Message = 2;
+  string MerchantCode = 3;
+  string MerchantOrderNo = 4;
+  string OrderNo = 5;
+  double OrderAmount = 6;
+  double ActualAmount = 7;
+  double TransferHandlingFee = 8;
+  string NotifyUrl = 9;
+  string OrderTime = 10;
+  string PayOrderTime = 11;
+  string Status = 12;
+}
+
+message ConfirmProxyPayOrderRequest {
+  string OrderNo = 1;
+  string Comment = 2;
+}
+
+message ConfirmProxyPayOrderResponse {
+  string Code = 1;
+  string Message = 2;
+}
+
+message RecoverReceiptOrderRequest {
+  string OrderNo = 1;
+  double Amount = 2;
+  bool   isCalculateCommission = 3;
+  string Comment = 4;
+  string UserAccount = 6;
+}
+
+message RecoverReceiptOrderResponse {
+  string Code = 1;
+  string Message = 2;
+}
+
+message FrozenReceiptOrderRequest {
+  string OrderNo = 1;
+  double FrozenAmount = 2;
+  string Comment = 3;
+  string UserAccount = 4;
+}
+
+message FrozenReceiptOrderResponse {
+  string Code = 1;
+  string Message = 2;
+}
+
+message UnFrozenReceiptOrderRequest {
+  string OrderNo = 1;
+  string UserAccount = 2;
+}
+
+message UnFrozenReceiptOrderResponse {
+  string Code = 1;
+  string Message = 2;
+}
+
+message PersonalRebundRequest {
+  string OrderNo = 1;
+  string UserAccount = 2;
+  string Memo = 3;
+  string action = 4;
+}
+
+message PersonalRebundResponse {
+  string orderNo = 1;
+  string Code = 2;
+  string Message = 3;
+}
+
+message RecalculateProfitRequest {
+  repeated CalculateProfit list = 1;
+}
+
+message CalculateProfit {
+  string MerchantCode = 1;
+  string OrderNo = 2;
+  string Type = 3;
+  string CurrencyCode = 4;
+  string BalanceType = 5;
+  string ChannelCode = 6;
+  string ChannelPayTypesCode = 7;
+  double OrderAmount = 8;
+}
+
+message RecalculateProfitResponse {
+  string Code = 1;
+  string Message = 2;
+}
+
+message CalculateCommissionMonthAllRequest {
+  string Month = 1;
+}
+
+message CalculateCommissionMonthAllResponse {
+  string Code = 1;
+  string Message = 2;
+}
+
+message RecalculateCommissionMonthReportRequest {
+  int64 ID = 1;
+}
+
+message RecalculateCommissionMonthReportResponse {
+  string Code = 1;
+  string Message = 2;
+}
+
+message ConfirmCommissionMonthReportRequest {
+  int64 ID = 1;
+  string ConfirmBy = 2;
+}
+
+message  ConfirmCommissionMonthReportResponse {
+  string Code = 1;
+  string Message = 2;
+}
+
+message CalculateMonthProfitReportRequest {
+  string month = 1;
+}
+
+message CalculateMonthProfitReportResponse {
+  string Code = 1;
+  string Message = 2;
+}
+
+message WithdrawCommissionOrderRequest {
+  string OrderNo = 1;
+  string MerchantCode = 2;
+  string WithdrawCurrencyCode = 3;
+  string PayCurrencyCode = 4;
+  double WithdrawAmount = 5;
+  double ExchangeRate = 6;
+  double PayAmount = 7;
+  string Remark = 8;
+  string AttachmentPath = 9;
+  string PayAt = 10;
+  string CreatedBy = 11;
+}
+
+message   WithdrawCommissionOrderResponse {
+  string Code = 1;
+  string Message = 2;
+}
+
+message WithdrawOrderTestRequest {
+  string WithdrawOrderNo = 1;
+  int64  PtBalanceId = 2;
+  string Remark = 3;
+}
+
+message  WithdrawOrderTestResponse {
+  string Code = 1;
+  string Message = 2;
+}
+
+service Transaction {
+
+  rpc MerchantBalanceUpdateTranaction(MerchantBalanceUpdateRequest) returns (MerchantBalanceUpdateResponse);
+
+  rpc MerchantBalanceFreezeTranaction(MerchantBalanceFreezeRequest) returns (MerchantBalanceFreezeResponse);
+
+  rpc ProxyOrderTranaction_DFB(ProxyOrderRequest) returns (ProxyOrderResponse);
+
+  rpc ProxyOrderTranaction_XFB(ProxyOrderRequest) returns (ProxyOrderResponse);
+
+  rpc ProxyOrderSmartTranaction_DFB(ProxyOrderSmartRequest) returns (ProxyOrderResponse);
+
+  rpc ProxyOrderSmartTranaction_XFB(ProxyOrderSmartRequest) returns (ProxyOrderResponse);
+
+  rpc ProxyOrderTransactionFail_DFB(ProxyPayFailRequest) returns (ProxyPayFailResponse);
+
+  rpc ProxyOrderTransactionFail_XFB(ProxyPayFailRequest) returns (ProxyPayFailResponse);
+
+  rpc PayOrderSwitchTest(PayOrderSwitchTestRequest) returns (PayOrderSwitchTestResponse);
+
+  rpc ProxyOrderToTest_DFB(ProxyOrderTestRequest) returns (ProxyOrderTestResponse);
+
+  rpc ProxyOrderToTest_XFB(ProxyOrderTestRequest) returns (ProxyOrderTestResponse);
+
+  rpc ProxyTestToNormal_DFB(ProxyOrderTestRequest) returns (ProxyOrderTestResponse);
+
+  rpc ProxyTestToNormal_XFB(ProxyOrderTestRequest) returns (ProxyOrderTestResponse);
+
+  rpc PayOrderTranaction(PayOrderRequest) returns (PayOrderResponse);
+
+  rpc InternalOrderTransaction(InternalOrderRequest) returns (InternalOrderResponse);
+
+  rpc WithdrawOrderTransaction(WithdrawOrderRequest) returns (WithdrawOrderResponse);
+
+  rpc PayCallBackTranaction(PayCallBackRequest) returns (PayCallBackResponse);
+
+  rpc InternalReviewSuccessTransaction(InternalReviewSuccessRequest) returns (InternalReviewSuccessResponse);
+
+  rpc WithdrawReviewFailTransaction(WithdrawReviewFailRequest) returns (WithdrawReviewFailResponse);
+
+  rpc WithdrawReviewSuccessTransaction(WithdrawReviewSuccessRequest) returns (WithdrawReviewSuccessResponse);
+
+  rpc ProxyOrderUITransaction_DFB(ProxyOrderUIRequest) returns (ProxyOrderUIResponse);
+
+  rpc ProxyOrderUITransaction_XFB(ProxyOrderUIRequest) returns (ProxyOrderUIResponse);
+
+  rpc MakeUpReceiptOrderTransaction(MakeUpReceiptOrderRequest) returns (MakeUpReceiptOrderResponse);
+
+  rpc ConfirmPayOrderTransaction(ConfirmPayOrderRequest) returns (ConfirmPayOrderResponse);
+
+  rpc ConfirmProxyPayOrderTransaction(ConfirmProxyPayOrderRequest) returns (ConfirmProxyPayOrderResponse);
+
+  rpc RecoverReceiptOrderTransaction (RecoverReceiptOrderRequest) returns (RecoverReceiptOrderResponse);
+
+  rpc FrozenReceiptOrderTransaction (FrozenReceiptOrderRequest) returns (FrozenReceiptOrderResponse);
+
+  rpc UnFrozenReceiptOrderTransaction (UnFrozenReceiptOrderRequest) returns (UnFrozenReceiptOrderResponse);
+
+  rpc PersonalRebundTransaction_DFB (PersonalRebundRequest) returns (PersonalRebundResponse);
+
+  rpc PersonalRebundTransaction_XFB (PersonalRebundRequest) returns (PersonalRebundResponse);
+
+  rpc RecalculateProfitTransaction(RecalculateProfitRequest) returns (RecalculateProfitResponse);
+
+  rpc CalculateCommissionMonthAllReport(CalculateCommissionMonthAllRequest) returns (CalculateCommissionMonthAllResponse);
+
+  rpc RecalculateCommissionMonthReport(RecalculateCommissionMonthReportRequest) returns (RecalculateCommissionMonthReportResponse);
+
+  rpc ConfirmCommissionMonthReport(ConfirmCommissionMonthReportRequest) returns (ConfirmCommissionMonthReportResponse);
+
+  rpc CalculateMonthProfitReport(CalculateMonthProfitReportRequest) returns (CalculateMonthProfitReportResponse);
+
+  rpc WithdrawCommissionOrderTransaction(WithdrawCommissionOrderRequest) returns (WithdrawCommissionOrderResponse);
+
+  rpc WithdrawOrderToTest_XFB(WithdrawOrderTestRequest) returns (WithdrawOrderTestResponse);
+
+  rpc WithdrawTestToNormal_XFB(WithdrawOrderTestRequest) returns (WithdrawOrderTestResponse);
+}
