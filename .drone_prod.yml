@@ -7,46 +7,6 @@ clone:
   disable: true
 
 steps:
-- name: slb-before-api01
-  image: appleboy/drone-ssh
-  settings:
-    host:
-      from_secret: elk-host
-    username: 
-      from_secret: elk-user
-    password:
-      from_secret: elk-pwd
-    port:
-      from_secret: elk-port
-    command_timeout: 180m
-    script:
-      - cd /home/aliyun_deploy
-      - ./api01-before.sh
-  when:
-    ref:
-      - refs/tags/api01-tra-*
-      - refs/tags/api01-test-*
-
-- name: slb-before-api02
-  image: appleboy/drone-ssh
-  settings:
-    host:
-      from_secret: elk-host
-    username: 
-      from_secret: elk-user
-    password:
-      from_secret: elk-pwd
-    port:
-      from_secret: elk-port
-    command_timeout: 180m
-    script:
-      - cd /home/aliyun_deploy
-      - ./api02-before.sh
-  when:
-    ref:
-      - refs/tags/api02-tra-*
-      - refs/tags/api02-test-*
-
 - name: docker-transaction-api01
   image: appleboy/drone-ssh
   settings:
@@ -73,7 +33,6 @@ steps:
   when:
     ref:
       - refs/tags/api01-tra-*
-      - refs/tags/api01-test-*
     status:
       - success
 
@@ -103,27 +62,5 @@ steps:
   when:
     ref:
       - refs/tags/api02-tra-*
-      - refs/tags/api02-test-*
     status:
       - success
-
-- name: slb-after
-  image: appleboy/drone-ssh
-  settings:
-    host:
-      from_secret: elk-host
-    username: 
-      from_secret: elk-user
-    password:
-      from_secret: elk-pwd
-    port:
-      from_secret: elk-port
-    command_timeout: 180m
-    script:
-      - cd /home/aliyun_deploy
-      - ./api-after.sh
-  when:
-    ref:
-      - refs/tags/api01-tra-*
-      - refs/tags/api02-tra-*
-      - refs/tags/api-bal*
